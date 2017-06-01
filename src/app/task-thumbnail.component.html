@@ -1,0 +1,16 @@
+<div class="list-group-item" [routerLink]="['/tasks', task.id]">
+  <div class="row">
+    <div class="col-md-2">
+      <input type="checkbox" [(ngModel)]="task.checked" data-md-icheck (change)="setChecked(task)">
+    </div>
+    <div class="col-md-8">
+      <h3>{{task.name}}</h3>
+      <p>{{task?.description}}</p>
+      <p *ngIf="task?.dueDate">Due @ {{task?.dueDate}}</p>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="close" data-md-icheck (click)="delete(task)" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+    </div>
+  </div>
+</div>

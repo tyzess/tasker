@@ -8,28 +8,6 @@ import { TaskService } from './task.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Tasker';
-  tasks: Task[];
-
-  constructor(private taskService: TaskService) { }
-
-  getTasks(): void {
-    this.taskService
-      .getTasks()
-      .then(tasks => this.tasks = tasks);
-  }
-
-  setChecked(task): void {
-    this.taskService.setChecked(task.id, task.checked);
-  }
-
-  delete(task): void {
-    this.taskService.delete(task.id);
-  }
-
-  ngOnInit(): void {
-    this.getTasks();
-  }
-
 }

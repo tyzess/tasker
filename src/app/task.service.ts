@@ -26,6 +26,7 @@ export class TaskService {
       .get(url, {headers: this.headers})
       .toPromise()
       .then(response => {
+        console.log('Fetched all tasks');
         console.log(response.json());
         return response.json()._embedded.tasks as Task[];
       })
@@ -37,7 +38,11 @@ export class TaskService {
     return this.http
       .get(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json().data as Task)
+      .then(response => {
+        console.log('Fetched tasks with id: ' + id);
+        console.log(response.json());
+        return response.json() as Task;
+      })
       .catch(this.handleError);
   }
 
@@ -54,7 +59,7 @@ export class TaskService {
     return this.http
       .post(this.taskURL, JSON.stringify({name: name}), {headers: this.headers})
       .toPromise()
-      .then(res => res.json().data as Task)
+      .then(response => response.json() as Task)
       .catch(this.handleError);
   }
 
