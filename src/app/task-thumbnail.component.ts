@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Task} from './task';
+import {ITask} from './task.model';
 
 @Component({
   selector: 'app-task-thumbnail',
@@ -7,7 +7,7 @@ import {Task} from './task';
 })
 
 export class TaskThumbnailComponent {
-  @Input() task: Task;
+  @Input() task: ITask;
 
   // setChecked(task): void {
   //   this.taskService.setChecked(task.id, task.checked);

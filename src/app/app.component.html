@@ -2,9 +2,9 @@
   <div class="header clearfix">
     <nav>
       <ul class="nav nav-pills pull-right">
-        <li role="presentation" class="active"><a [routerLink]="['/tasks']">Home</a></li>
-        <li role="presentation"><a href="#">Settings</a></li>
-        <li role="presentation"><a href="#">Logout</a></li>
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/tasks']">Home</a></li>
+        <li role="presentation" routerLinkActive="active"><a href="#">Settings</a></li>
+        <li role="presentation" routerLinkActive="active"><a href="#">Logout</a></li>
       </ul>
     </nav>
     <h3 class="text-muted">{{title}}</h3>

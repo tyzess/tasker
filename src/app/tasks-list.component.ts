@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from './task.service';
-import {Task} from './task';
+import {ITask} from './task.model';
 
 @Component({
   templateUrl: './tasks-list.component.html'
@@ -8,7 +8,7 @@ import {Task} from './task';
 
 export class TasksListComponent implements OnInit {
 
-  tasks: Task[];
+  tasks: ITask[];
 
   constructor(private taskService: TaskService) { }
 

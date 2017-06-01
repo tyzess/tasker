@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from './task.service';
-import {Task} from './task';
+import {ITask} from './task.model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 
 export class TaskDetailsComponent implements OnInit {
-  task: Task;
+  task: ITask;
 
   constructor(private taskService: TaskService, private activatedRoute: ActivatedRoute) {}
 

@@ -3,7 +3,7 @@ import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Task} from './task';
+import {ITask} from './task.model';
 
 @Injectable()
 export class TaskService {
@@ -20,7 +20,7 @@ export class TaskService {
   constructor(private http: Http) {
   }
 
-  getTasks(): Promise<Task[]> {
+  getTasks(): Promise<ITask[]> {
     const url = `${this.taskURL}/`;
     return this.http
       .get(url, {headers: this.headers})
@@ -28,12 +28,12 @@ export class TaskService {
       .then(response => {
         console.log('Fetched all tasks');
         console.log(response.json());
-        return response.json()._embedded.tasks as Task[];
+        return response.json()._embedded.tasks as ITask[];
       })
       .catch(this.handleError);
   }
 
-  getTask(id: number): Promise<Task> {
+  getTask(id: number): Promise<ITask> {
     const url = `${this.taskURL}/${id}`;
     return this.http
       .get(url, {headers: this.headers})
@@ -41,7 +41,7 @@ export class TaskService {
       .then(response => {
         console.log('Fetched tasks with id: ' + id);
         console.log(response.json());
-        return response.json() as Task;
+        return response.json() as ITask;
       })
       .catch(this.handleError);
   }
@@ -55,15 +55,15 @@ export class TaskService {
       .catch(this.handleError);
   }
 
-  create(name: string): Promise<Task> {
+  create(name: string): Promise<ITask> {
     return this.http
       .post(this.taskURL, JSON.stringify({name: name}), {headers: this.headers})
       .toPromise()
-      .then(response => response.json() as Task)
+      .then(response => response.json() as ITask)
       .catch(this.handleError);
   }
 
-  update(task: Task): Promise<Task> {
+  update(task: ITask): Promise<ITask> {
     const url = `${this.taskURL}/${task.id}`;
     return this.http
       .put(url, JSON.stringify(task), {headers: this.headers})
