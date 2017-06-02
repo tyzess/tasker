@@ -9,13 +9,13 @@ import {ITask} from './shared/task.model';
   templateUrl: './create-task.component.html'
 })
 export class CreateTaskComponent {
+  today = new Date().toJSON().split('T')[0];
 
   constructor(private router: Router, private taskService: TaskService) {
   }
 
   createTask(task: ITask) {
-    console.log('Form value: ' + task);
-    this.taskService.create(task);
-    // this.router.navigate(['tasks']);
+    this.taskService.create(task).then(newTask => this.router.navigate(['tasks', newTask.id]));
   }
+
 }

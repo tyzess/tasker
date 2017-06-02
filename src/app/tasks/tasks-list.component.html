@@ -1,4 +1,4 @@
 <app-create-task></app-create-task>
 <div class="list-group">
-  <app-task-thumbnail (deleteTask)="deleteTask($event)" *ngFor="let task of tasks" [task]="task"></app-task-thumbnail>
+  <app-task-thumbnail (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)" *ngFor="let task of tasks" [task]="task"></app-task-thumbnail>
 </div>

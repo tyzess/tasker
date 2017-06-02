@@ -27,11 +27,7 @@ export class TaskService {
     return this.http
       .get(url, this.options)
       .toPromise()
-      .then(response => {
-        console.log('Fetched all tasks');
-        console.log(response.json()._embedded.tasks);
-        return response.json()._embedded.tasks as ITask[];
-      })
+      .then(response => response.json()._embedded.tasks as ITask[])
       .catch(this.handleError);
   }
 
@@ -40,23 +36,16 @@ export class TaskService {
     return this.http
       .get(url, this.options)
       .toPromise()
-      .then(response => {
-        console.log('Fetched tasks with id: ' + id);
-        console.log(response.json());
-        return response.json() as ITask;
-      })
+      .then(response => response.json() as ITask)
       .catch(this.handleError);
   }
 
-  create(task: ITask): Promise<boolean> {
+  create(task: ITask): Promise<ITask> {
     const url = `${this.taskURL}/`;
     return this.http
       .post(url, JSON.stringify(task), this.options)
       .toPromise()
-      .then(response => {
-        console.log(response);
-        return response.status === 200;
-      })
+      .then(response => response.json())
       .catch(this.handleError);
   }
 
@@ -64,11 +53,7 @@ export class TaskService {
     const url = `${this.taskURL}/${id}`;
     return this.http
       .delete(url, this.options)
-      .toPromise()
-      .then(() => {
-        console.log('Removed task');
-        return null;
-      })
+      .toPromise().then(value => null)
       .catch(this.handleError);
   }
 

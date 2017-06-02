@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group input-group">
-        <input type="text" name="name" class="form-control" (ngModel)="task.name" placeholder="What should you remember?"/>
+        <input type="text" name="name" required class="form-control" (ngModel)="task.name" placeholder="What should you remember?"/>
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary" [disabled]="createForm.invalid">Create</button>
         </span>
       </div>
     </div>
@@ -13,7 +13,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-5">
       <div class="form-group input-group">
-        <input type="date" name="dueDate" class="form-control" (ngModel)="task.dueDate"/>
+        <input type="date" name="dueDate" class="form-control" placeholder="yyyy-MM-dd" (ngModel)="task.dueDate"  [min]="today" max="2100-12-31"/>
         <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
       </span>

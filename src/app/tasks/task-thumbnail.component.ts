@@ -9,10 +9,11 @@ import {ITask} from './shared/task.model';
 export class TaskThumbnailComponent {
   @Input() task: ITask;
   @Output() deleteTask = new EventEmitter();
+  @Output() setCheckTask = new EventEmitter();
 
-  // setChecked(task): void {
-  //   this.taskService.setChecked(task.id, task.checked);
-  // }
+  setChecked(task): void {
+    this.setCheckTask.emit(task);
+  }
 
   delete(task): void {
     this.deleteTask.emit(task.id);
