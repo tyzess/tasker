@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TaskService} from './shared/task.service';
+import {ActivatedRoute} from '@angular/router';
+
 import {ITask} from './shared/task.model';
 
 @Component({
@@ -7,19 +8,12 @@ import {ITask} from './shared/task.model';
 })
 
 export class TasksListComponent implements OnInit {
-
   tasks: ITask[];
 
-  constructor(private taskService: TaskService) { }
-
-  getTasks(): void {
-    this.taskService
-      .getTasks()
-      .then(tasks => this.tasks = tasks);
-  }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getTasks();
+    this.tasks = this.route.snapshot.data['tasks'];
   }
 
 }

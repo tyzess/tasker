@@ -27,7 +27,7 @@ export class TaskService {
       .toPromise()
       .then(response => {
         console.log('Fetched all tasks');
-        console.log(response.json());
+        console.log(response.json()._embedded.tasks);
         return response.json()._embedded.tasks as ITask[];
       })
       .catch(this.handleError);

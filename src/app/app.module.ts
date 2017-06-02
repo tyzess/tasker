@@ -1,19 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
 
-import { TaskAppComponent } from './task-app.component';
-import { appRoutes } from './routes';
+import {TaskAppComponent} from './task-app.component';
+import {appRoutes} from './routes';
 
-import { TasksListComponent } from './tasks/tasks-list.component';
-import { TaskThumbnailComponent } from './tasks/task-thumbnail.component';
-import { TaskDetailsComponent } from './tasks/task-details.component';
-import { CreateTaskComponent } from './tasks/create-task.component';
-import { TaskService } from './tasks/shared/task.service';
+import {TasksListComponent} from './tasks/tasks-list.component';
+import {TaskThumbnailComponent} from './tasks/task-thumbnail.component';
+import {TaskDetailsComponent} from './tasks/task-details.component';
+import {CreateTaskComponent} from './tasks/create-task.component';
+import {TaskService} from './tasks/shared/task.service';
+import {TaskResolver} from './tasks/shared/task-resolver';
+import {TasksResolver} from './tasks/shared/tasks-resolver';
 
-import { AuthService } from './user/auth.service';
+import {AuthService} from './user/auth.service';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { AuthService } from './user/auth.service';
   ],
   providers: [
     TaskService,
-    AuthService ],
+    AuthService,
+    TaskResolver,
+    TasksResolver ],
   bootstrap: [ TaskAppComponent ]
 })
-export class AppModule { }
+export class AppModule {}
