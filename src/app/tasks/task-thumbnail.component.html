@@ -1,9 +1,9 @@
-<div class="list-group-item" [routerLink]="['/tasks', task.id]">
+<div class="list-group-item">
   <div class="row">
     <div class="col-md-2">
       <input type="checkbox" [(ngModel)]="task.checked" data-md-icheck (change)="setChecked(task)">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8" [routerLink]="['/tasks', task.id]">
       <h3>{{task.name}}</h3>
       <p>{{task?.description}}</p>
       <p *ngIf="task?.dueDate">Due @ {{task?.dueDate}}</p>

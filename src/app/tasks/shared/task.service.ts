@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
+import {Headers, Http, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,6 +15,8 @@ export class TaskService {
       'Access-Control-Allow-Origin': 'http://localhost:4200'
     });
 
+  private options = new RequestOptions({headers: this.headers});
+
   private taskURL = 'http://localhost:8080/tasks';
 
   constructor(private http: Http) {
@@ -23,7 +25,7 @@ export class TaskService {
   getTasks(): Promise<ITask[]> {
     const url = `${this.taskURL}/`;
     return this.http
-      .get(url, {headers: this.headers})
+      .get(url, this.options)
       .toPromise()
       .then(response => {
         console.log('Fetched all tasks');
@@ -36,7 +38,7 @@ export class TaskService {
   getTask(id: number): Promise<ITask> {
     const url = `${this.taskURL}/${id}`;
     return this.http
-      .get(url, {headers: this.headers})
+      .get(url, this.options)
       .toPromise()
       .then(response => {
         console.log('Fetched tasks with id: ' + id);
@@ -46,38 +48,50 @@ export class TaskService {
       .catch(this.handleError);
   }
 
-  delete(id: number): Promise<void> {
-    const url = `${this.taskURL}/${id}`;
+  create(task: ITask): Promise<boolean> {
+    const url = `${this.taskURL}/`;
     return this.http
-      .delete(url, {headers: this.headers})
+      .post(url, JSON.stringify(task), this.options)
       .toPromise()
-      .then(() => null)
+      .then(response => {
+        console.log(response);
+        return response.status === 200;
+      })
       .catch(this.handleError);
   }
 
-  create(name: string): Promise<ITask> {
+  delete(id: number): Promise<void> {
+    const url = `${this.taskURL}/${id}`;
     return this.http
-      .post(this.taskURL, JSON.stringify({name: name}), {headers: this.headers})
+      .delete(url, this.options)
       .toPromise()
-      .then(response => response.json() as ITask)
+      .then(() => {
+        console.log('Removed task');
+        return null;
+      })
       .catch(this.handleError);
   }
 
   update(task: ITask): Promise<ITask> {
     const url = `${this.taskURL}/${task.id}`;
     return this.http
-      .put(url, JSON.stringify(task), {headers: this.headers})
+      .put(url, JSON.stringify(task), this.options)
       .toPromise()
-      .then(() => task)
+      .then((response) => {
+        console.log('Updated task with id: ' + task.id);
+        console.log(response.json());
+        return task;
+      })
       .catch(this.handleError);
   }
 
   setChecked(id: number, check: boolean): Promise<boolean> {
     const url = `${this.taskURL}/${id}/${check ? 'check' : 'uncheck'}`;
     return this.http
-      .post(url, {}, {headers: this.headers})
+      .post(url, {}, this.options)
       .toPromise()
       .then(response => {
+        console.log('Set task with id: ' + id + ' to checked: ' + check);
         console.log(response.status);
         return response.status === 200;
       })
@@ -85,7 +99,7 @@ export class TaskService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error); // XXX fix
     return Promise.reject(error.message || error);
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ITask} from './shared/task.model';
 
 @Component({
@@ -8,13 +8,14 @@ import {ITask} from './shared/task.model';
 
 export class TaskThumbnailComponent {
   @Input() task: ITask;
+  @Output() deleteTask = new EventEmitter();
 
   // setChecked(task): void {
   //   this.taskService.setChecked(task.id, task.checked);
   // }
-  //
-  // delete(task): void {
-  //   this.taskService.delete(task.id);
-  // }
+
+  delete(task): void {
+    this.deleteTask.emit(task.id);
+  }
 
 }

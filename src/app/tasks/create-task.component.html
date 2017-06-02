@@ -1,3 +1,36 @@
-<div>
-  <button type="submit" class="btn btn-primary">Create</button>
+<form #createForm="ngForm" (ngSubmit)="createTask(createForm.value)">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group input-group">
+        <input type="text" name="name" class="form-control" (ngModel)="task.name" placeholder="What should you remember?"/>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <div class="form-group input-group">
+        <input type="date" name="dueDate" class="form-control" (ngModel)="task.dueDate"/>
+        <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+      </span>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group input-group">
+        <input type="time" name="dueTime" class="form-control" (ngModel)="task.dueTime"/>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+        </span>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</form>
+<div class="row">
+  <hr/>
 </div>
+
