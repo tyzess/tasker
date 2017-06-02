@@ -6,7 +6,9 @@
     <div class="col-md-8" [routerLink]="['/tasks', task.id]">
       <h3>{{task.name}}</h3>
       <p>{{task?.description}}</p>
-      <p *ngIf="task?.dueDate">Due @ {{task?.dueDate}}</p>
+      <p *ngIf="task?.dueDate">{{task?.dueDate | date:'shortDate'}} <span class="glyphicon glyphicon-calendar"></span></p>
+      <p *ngIf="task?.dueTime">{{task?.dueTime}} <span class="glyphicon glyphicon-time"></span></p>
+
     </div>
     <div class="col-md-2">
       <button type="button" class="close" data-md-icheck (click)="delete(task)" aria-label="Close"><span
@@ -14,3 +16,4 @@
     </div>
   </div>
 </div>
+<hr/>

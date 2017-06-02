@@ -20,7 +20,7 @@ export class TasksListComponent implements OnInit {
 
   deleteTask(id: number) {
     this.taskService.delete(id).then(() => {
-      this.taskService.getTasks().then(allTasks => this.tasks = allTasks);
+      this.taskService.getTasks(this.route.queryParams['filter']).then(allTasks => this.tasks = allTasks);
     });
   }
 

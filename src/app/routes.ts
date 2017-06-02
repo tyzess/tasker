@@ -7,9 +7,9 @@ import {TaskResolver} from './tasks/shared/task-resolver';
 import {TasksResolver} from './tasks/shared/tasks-resolver';
 
 export const appRoutes: Routes = [
+  { path: 'tasks', component: TasksListComponent, resolve: {tasks: TasksResolver}},
   { path: 'tasks/new', component: CreateTaskComponent },
   { path: 'tasks/:id', component: TaskDetailsComponent, resolve: {task: TaskResolver}},
-  { path: 'tasks', component: TasksListComponent, resolve: {tasks: TasksResolver}},
   { path: '', redirectTo: '/tasks', pathMatch: 'full'},
   { path: 'user', loadChildren: 'app/user/user.module#UserModule' }
 ]

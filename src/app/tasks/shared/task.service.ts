@@ -22,14 +22,24 @@ export class TaskService {
   constructor(private http: Http) {
   }
 
-  getTasks(): Promise<ITask[]> {
+  getTasks(filter?: string): Promise<ITask[]> {
+    console.log('get tasks with filter: ' + filter);
     const url = `${this.taskURL}/`;
     return this.http
-      .get(url, this.options)
+      .get(url + this.urlByFilter(filter), this.options)
       .toPromise()
       .then(response => response.json()._embedded.tasks as ITask[])
       .catch(this.handleError);
   }
+
+  private urlByFilter(filter: string) {
+    switch (filter) {
+      case 'today':   { return ''; }
+      case 'week':    { return ''; }
+      case 'overdue': { return `search/findAllByDueDateBefore?before=${new Date().toJSON().split('T')[0]}`; }
+      default:        { return ''; }
+    }
+}
 
   getTask(id: number): Promise<ITask> {
     const url = `${this.taskURL}/${id}`;
