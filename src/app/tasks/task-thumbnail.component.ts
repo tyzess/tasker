@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ITask} from './task.model';
+import {ITask} from './shared/task.model';
 
 @Component({
   selector: 'app-task-thumbnail',

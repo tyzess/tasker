@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TaskService} from './task.service';
-import {ITask} from './task.model';
+import {TaskService} from './shared/task.service';
+import {ITask} from './shared/task.model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
