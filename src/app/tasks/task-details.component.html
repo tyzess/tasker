@@ -1,7 +1,17 @@
 <div class="list-group-item">
   <div class="row">
-    <p>{{task?.name}}</p>
-    <p>{{task?.description}}</p>
-    <p>{{task?.dueDate}}</p>
+    <div class="col-md-12">
+      <h1>{{task?.name}}</h1>
+      <p>{{task?.description}}</p>
+      <p *ngIf="task?.dueDate">Due at {{task?.dueDate}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-md-6" *ngFor="let child of children">
+      <p>{{child.name}}</p>
+    </div>
   </div>
 </div>

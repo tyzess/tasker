@@ -1,6 +1,6 @@
-<app-create-task></app-create-task>
+<app-create-task (createTask)="createTask($event)"></app-create-task>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" style="border-right: 1px solid #ccc;">
     <div class="row">
       <p>Filters:</p>
         <div class="btn-group" role="group">
@@ -12,12 +12,12 @@
     </div>
     <div class="row"><hr/></div>
     <div class="list-group">
-      <app-task-thumbnail (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)"
+      <app-task-thumbnail (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)" (selectTask)="selectTask($event)"
                           *ngFor="let task of tasks" [task]="task"></app-task-thumbnail>
     </div>
   </div>
   <div class="col-md-8">
-    <app-task-details></app-task-details>
+    <app-task-details *ngIf="selectedTask" [task]="selectedTask"></app-task-details>
   </div>
 </div>
 

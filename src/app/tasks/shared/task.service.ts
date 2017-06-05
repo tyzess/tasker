@@ -12,12 +12,13 @@ export class TaskService {
     {
       'Content-Type': 'application/json',
       'Authorization': 'Basic dXJzOjEyMw==',
-      'Access-Control-Allow-Origin': 'http://localhost:4200'
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Expose-Headers' : 'Location' // TODO this must be added to the backend https://github.com/angular/angular/issues/5237#issuecomment-239174349
     });
 
   private options = new RequestOptions({headers: this.headers});
 
-  private taskURL = 'http://localhost:8080/tasks';
+  private taskURL = 'http://localhost:8080/tasks'; // with docker use 138.68.85.173
 
   constructor(private http: Http) {
   }
@@ -33,13 +34,25 @@ export class TaskService {
   }
 
   private urlByFilter(filter: string) {
+    const today = new Date();
+    const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+    const todayInOneWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
     switch (filter) {
-      case 'today':   { return ''; }
-      case 'week':    { return ''; }
-      case 'overdue': { return `search/findAllByDueDateBefore?before=${new Date().toJSON().split('T')[0]}`; }
-      default:        { return ''; }
+      case 'today': {
+        return `search/findAllByDueDateAfterAndDueDateBefore?after=${yesterday.toJSON().split('T')[0]}&before=${tomorrow.toJSON().split('T')[0]}`;
+      }
+      case 'week': {
+        return `search/findAllByDueDateAfterAndDueDateBefore?after=${yesterday.toJSON().split('T')[0]}&before=${todayInOneWeek.toJSON().split('T')[0]}`;
+      }
+      case 'overdue': {
+        return `search/findAllByDueDateBefore?before=${today.toJSON().split('T')[0]}`;
+      }
+      default: {
+        return '';
+      }
     }
-}
+  }
 
   getTask(id: number): Promise<ITask> {
     const url = `${this.taskURL}/${id}`;
@@ -50,12 +63,16 @@ export class TaskService {
       .catch(this.handleError);
   }
 
-  create(task: ITask): Promise<ITask> {
+  create(task: ITask): Promise<number> {
     const url = `${this.taskURL}/`;
     return this.http
       .post(url, JSON.stringify(task), this.options)
-      .toPromise()
-      .then(response => response.json())
+      .toPromise().then(response => {
+        console.log('------------------8');
+        console.log(response.headers.keys());
+        console.log(response.headers.getAll('Location')); // TODO get id from header.location!!!!
+        return 1;
+      })
       .catch(this.handleError);
   }
 
@@ -85,11 +102,16 @@ export class TaskService {
     return this.http
       .post(url, {}, this.options)
       .toPromise()
-      .then(response => {
-        console.log('Set task with id: ' + id + ' to checked: ' + check);
-        console.log(response.status);
-        return response.status === 200;
-      })
+      .then(response => response.status === 200)
+      .catch(this.handleError);
+  }
+
+  getTaskChildren(id: number): Promise<ITask[]> {
+    const url = `${this.taskURL}/${id}/children`;
+    return this.http
+      .get(url, this.options)
+      .toPromise()
+      .then(response => (response.json()._embedded) ? response.json()._embedded.tasks as ITask[] : [] as ITask[])
       .catch(this.handleError);
   }
 

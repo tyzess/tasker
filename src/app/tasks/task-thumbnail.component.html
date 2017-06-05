@@ -1,14 +1,19 @@
 <div class="list-group-item">
   <div class="row">
     <div class="col-md-2">
-      <input type="checkbox" [(ngModel)]="task.checked" data-md-icheck (change)="setChecked(task)">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="task.checked" data-md-icheck (change)="setChecked(task)">
+          <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+        </label>
+      </div>
     </div>
-    <div class="col-md-8" [routerLink]="['/tasks', task.id]">
-      <h3>{{task.name}}</h3>
+    <div class="col-md-8" data-md-icheck (click)="select(task)">
+      <h3 class="task-title">{{task.name}}</h3>
       <p>{{task?.description}}</p>
-      <p *ngIf="task?.dueDate">{{task?.dueDate | date:'shortDate'}} <span class="glyphicon glyphicon-calendar"></span></p>
+      <p *ngIf="task?.dueDate">{{task?.dueDate | date:'shortDate'}} <span class="glyphicon glyphicon-calendar"></span>
+      </p>
       <p *ngIf="task?.dueTime">{{task?.dueTime}} <span class="glyphicon glyphicon-time"></span></p>
-
     </div>
     <div class="col-md-2">
       <button type="button" class="close" data-md-icheck (click)="delete(task)" aria-label="Close"><span
@@ -16,4 +21,4 @@
     </div>
   </div>
 </div>
-<hr/>
+<div class="task-padding"></div>
