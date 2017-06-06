@@ -2,22 +2,33 @@
 <div class="row">
   <div class="col-md-4" style="border-right: 1px solid #ccc;">
     <div class="row">
-      <p>Filters:</p>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'all'}">All</button>
-          <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'today'}">Today</button>
-          <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'week'}">Week</button>
-          <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'overdue'}">Overdue</button>
-        </div>
+      Filters:
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'all'}">
+          All
+        </button>
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']"
+                [queryParams]="{filter: 'today'}">Today
+        </button>
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'week'}">
+          Week
+        </button>
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']"
+                [queryParams]="{filter: 'overdue'}">Overdue
+        </button>
+      </div>
     </div>
-    <div class="row"><hr/></div>
+    <div class="row">
+      <hr/>
+    </div>
     <div class="list-group">
-      <app-task-thumbnail (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)" (selectTask)="selectTask($event)"
+      <app-task-thumbnail (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)"
+                          (selectTask)="selectTask($event)"
                           *ngFor="let task of tasks" [task]="task"></app-task-thumbnail>
     </div>
   </div>
   <div class="col-md-8">
-    <app-task-details *ngIf="selectedTask" [task]="selectedTask"></app-task-details>
+    <app-task-details *ngIf="selectedTask" (deleteTask)="deleteTask($event)" (setCheckTask)="setCheckTask($event)" [task]="selectedTask"></app-task-details>
   </div>
 </div>
 

@@ -3,8 +3,7 @@ import {ITask} from './shared/task.model';
 
 @Component({
   selector: 'app-task-thumbnail',
-  templateUrl: './task-thumbnail.component.html',
-  styleUrls: ['./task-thumbnail.component.css']
+  templateUrl: './task-thumbnail.component.html'
 })
 
 export class TaskThumbnailComponent {
@@ -22,7 +21,6 @@ export class TaskThumbnailComponent {
   }
 
   select(task): void {
-    console.log("dsfdsf");
     this.selectTask.emit(task);
   }
 

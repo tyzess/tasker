@@ -9,7 +9,8 @@ import {ITask} from './task.model';
 @Injectable()
 export class TaskResolver implements Resolve<ITask> {
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) {
+  }
 
   resolve(route: ActivatedRouteSnapshot): ITask | Observable<ITask> | Promise<ITask> {
     return this.taskService.getTask(route.params['id']);

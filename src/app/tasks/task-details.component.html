@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <h1>{{task?.name}}</h1>
+      <div class="pull-right"><i class="cr-icon glyphicon glyphicon-plus"></i></div>
       <p>{{task?.description}}</p>
       <p *ngIf="task?.dueDate">Due at {{task?.dueDate}}</p>
     </div>
@@ -9,9 +10,24 @@
   <div class="row">
     <hr/>
   </div>
-  <div class="row">
-    <div class="col-md-6" *ngFor="let child of children">
-      <p>{{child.name}}</p>
+  <div class="row" *ngFor="let child of children">
+    <div class="col-md-8">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="child.checked" data-md-icheck (change)="setChecked(child)">
+          <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>{{child.name}}
+        </label>
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-2">
+      <button type="button" data-md-icheck (click)="add(child)">
+        <i class="cr-icon glyphicon glyphicon-plus"></i>
+      </button>
+      <button type="button" class="close" data-md-icheck (click)="delete(child)" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   </div>
 </div>

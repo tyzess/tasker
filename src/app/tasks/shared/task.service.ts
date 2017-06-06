@@ -12,19 +12,17 @@ export class TaskService {
     {
       'Content-Type': 'application/json',
       'Authorization': 'Basic dXJzOjEyMw==',
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Expose-Headers' : 'Location' // XXX remove, not necessary anymore
+      'Access-Control-Allow-Origin': 'http://localhost:4200' // XXX shouldn't be hardcoded
     });
 
   private options = new RequestOptions({headers: this.headers});
 
-  private taskURL = 'http://localhost:8080/tasks'; // with docker use 138.68.85.173
+  private taskURL = 'http://localhost:8080/tasks'; // XXX with docker use 138.68.85.173
 
   constructor(private http: Http) {
   }
 
   getTasks(filter?: string): Promise<ITask[]> {
-    console.log('get tasks with filter: ' + filter);
     const url = `${this.taskURL}/`;
     return this.http
       .get(url + this.urlByFilter(filter), this.options)
@@ -40,13 +38,15 @@ export class TaskService {
     const todayInOneWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
     switch (filter) {
       case 'today': {
-        return `search/findAllByDueDateAfterAndDueDateBefore?after=${yesterday.toJSON().split('T')[0]}&before=${tomorrow.toJSON().split('T')[0]}`;
+        return 'search/findAllByDueDateAfterAndDueDateBefore?after=' +
+        yesterday.toJSON().split('T')[0] + '&before=' + tomorrow.toJSON().split('T')[0];
       }
       case 'week': {
-        return `search/findAllByDueDateAfterAndDueDateBefore?after=${yesterday.toJSON().split('T')[0]}&before=${todayInOneWeek.toJSON().split('T')[0]}`;
+        return 'search/findAllByDueDateAfterAndDueDateBefore?after=' +
+        yesterday.toJSON().split('T')[0] + '&before=' + todayInOneWeek.toJSON().split('T')[0];
       }
       case 'overdue': {
-        return `search/findAllByDueDateBefore?before=${today.toJSON().split('T')[0]}`;
+        return 'search/findAllByDueDateBefore?before=' + today.toJSON().split('T')[0];
       }
       default: {
         return '';
@@ -84,11 +84,7 @@ export class TaskService {
     return this.http
       .put(url, JSON.stringify(task), this.options)
       .toPromise()
-      .then((response) => {
-        console.log('Updated task with id: ' + task.id);
-        console.log(response.json());
-        return task;
-      })
+      .then(response => task)
       .catch(this.handleError);
   }
 

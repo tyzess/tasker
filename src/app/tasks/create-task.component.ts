@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {Router} from '@angular/router';
 
 import {TaskService} from './shared/task.service';
 import {ITask} from './shared/task.model';
@@ -14,7 +13,7 @@ export class CreateTaskComponent {
 
   today = new Date().toJSON().split('T')[0];
 
-  constructor(private router: Router, private taskService: TaskService) {
+  constructor(private taskService: TaskService) {
   }
 
   create(form: NgForm) {
