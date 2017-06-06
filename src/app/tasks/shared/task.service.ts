@@ -13,7 +13,7 @@ export class TaskService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic dXJzOjEyMw==',
       'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Expose-Headers' : 'Location' // TODO this must be added to the backend https://github.com/angular/angular/issues/5237#issuecomment-239174349
+      'Access-Control-Expose-Headers' : 'Location' // XXX remove, not necessary anymore
     });
 
   private options = new RequestOptions({headers: this.headers});
@@ -67,12 +67,7 @@ export class TaskService {
     const url = `${this.taskURL}/`;
     return this.http
       .post(url, JSON.stringify(task), this.options)
-      .toPromise().then(response => {
-        console.log('------------------8');
-        console.log(response.headers.keys());
-        console.log(response.headers.getAll('Location')); // TODO get id from header.location!!!!
-        return 1;
-      })
+      .toPromise().then(response => +response.headers.get('Location').split('/').pop())
       .catch(this.handleError);
   }
 

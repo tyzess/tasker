@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 import {TaskService} from './shared/task.service';
 import {ITask} from './shared/task.model';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-create-task',
@@ -16,12 +17,13 @@ export class CreateTaskComponent {
   constructor(private router: Router, private taskService: TaskService) {
   }
 
-  create(task: ITask) {
+  create(form: NgForm) {
+    const task: ITask = form.value;
     this.taskService.create(task).then(newTaskId => {
       task.id = newTaskId;
       this.createTask.emit(task);
+      form.reset();
     });
-    // XXX bug in taskService.create!!
   }
 
 }
