@@ -11,9 +11,9 @@
     <div class="col-md-8" data-md-icheck (click)="select(task)">
       <h3 class="task-title">{{task.name}}</h3>
       <p>{{task?.description}}</p>
-      <p *ngIf="task?.dueDate">{{task?.dueDate | date:'shortDate'}} <span class="glyphicon glyphicon-calendar"></span>
+      <p *ngIf="task?.dueDate">{{task?.dueDate | date:'dd-MM-yyyy'}} <span class="glyphicon glyphicon-calendar"></span>
       </p>
-      <p *ngIf="task?.dueTime">{{task?.dueTime}} <span class="glyphicon glyphicon-time"></span></p>
+      <p *ngIf="task?.dueTime">{{'1970-01-01T' + task?.dueTime | date:'HH:mm'}} <span class="glyphicon glyphicon-time"></span></p>
     </div>
     <div class="col-md-2">
       <button type="button" class="close" data-md-icheck (click)="delete(task)" aria-label="Close"><span
