@@ -10,7 +10,7 @@ import {TaskService} from './shared/task.service';
 
 export class TasksListComponent implements OnInit {
   tasks: ITask[];
-  private selectedTask: ITask;
+  selectedTask: ITask;
 
   constructor(private route: ActivatedRoute, private router: Router, private taskService: TaskService) {
     route.queryParams.subscribe(

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {ITask} from './shared/task.model';
@@ -9,7 +9,7 @@ import {TaskService} from './shared/task.service';
   templateUrl: './task-details.component.html'
 })
 
-export class TaskDetailsComponent implements OnInit {
+export class TaskDetailsComponent {
   private _task: ITask;
   children: ITask[];
 
@@ -38,10 +38,6 @@ export class TaskDetailsComponent implements OnInit {
 
   get task() {
     return this._task;
-  }
-
-  ngOnInit(): void {
-    this.task = this.route.snapshot.data['task'];
   }
 
 }
