@@ -16,6 +16,12 @@ export class TaskDetailsComponent {
   @Output() deleteTask = new EventEmitter();
   @Output() setCheckTask = new EventEmitter();
 
+  createTaskChildren(task: ITask) {
+    this.taskService.setTaskParent(task, this.task).then(value => {
+      this.taskService.getTaskChildren(this.task.id).then(children => this.children = children);
+    });
+  }
+
   setChecked(child): void {
     this.setCheckTask.emit(child);
   }

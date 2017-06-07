@@ -106,6 +106,15 @@ export class TaskService {
       .catch(this.handleError);
   }
 
+  setTaskParent(task: ITask, parent: ITask): Promise<boolean> {
+    const url = `${this.taskURL}/${task.id}/parent?parent_id=${parent.id}`;
+    return this.http
+      .post(url, {}, this.options)
+      .toPromise()
+      .then(response => response.status === 200)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // XXX fix
     return Promise.reject(error.message || error);

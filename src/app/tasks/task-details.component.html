@@ -2,29 +2,38 @@
   <div class="row">
     <div class="col-md-12">
       <h1>{{task.name}}</h1>
-      <div class="pull-right"><i class="cr-icon glyphicon glyphicon-plus"></i></div>
+      <div class="pull-right">
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#app-create-child-div">
+          <i class="cr-icon glyphicon glyphicon-plus"></i>
+        </button>
+      </div>
       <p>{{task?.description}}</p>
       <p *ngIf="task?.dueDate">Due at {{task?.dueDate}}</p>
+    </div>
+    <div id="app-create-child-div" class="col-md-12 collapse">
+      <hr/>
+      <app-create-task (createTask)="createTaskChildren($event)"></app-create-task>
     </div>
   </div>
   <div class="row">
     <hr/>
   </div>
   <div class="row" *ngFor="let child of children">
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="checkbox">
         <label>
           <input type="checkbox" [(ngModel)]="child.checked" data-md-icheck (change)="setChecked(child)">
-          <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>{{child.name}}
+          <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> {{child.name}}
         </label>
       </div>
     </div>
     <div class="col-md-2">
+      <span *ngIf="child?.dueDate">{{child?.dueDate | date:'shortDate'}} <span class="glyphicon glyphicon-calendar"></span></span>
     </div>
     <div class="col-md-2">
-      <button type="button" data-md-icheck (click)="add(child)">
-        <i class="cr-icon glyphicon glyphicon-plus"></i>
-      </button>
+      <span *ngIf="child?.dueTime">{{child?.dueTime}} <span class="glyphicon glyphicon-time"></span></span>
+    </div>
+    <div class="col-md-1">
       <button type="button" class="close" data-md-icheck (click)="delete(child)" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
