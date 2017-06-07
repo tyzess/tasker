@@ -3,8 +3,8 @@ export interface ITask {
   checked: boolean;
   name: string;
   description: string;
-  due_date: Date;
-  due_time: Date;
+  dueDate: Date;
+  dueTime: Date;
   category: {
     name: string;
   };
