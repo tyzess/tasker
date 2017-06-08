@@ -5,6 +5,13 @@
 <div class="row">
   <div class="col-md-4" style="border-right: 1px solid #ccc;">
     <div class="row">
+      Sort:
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{sort: 'AZ'}">A-Z</button>
+        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{sort: 'ZA'}">Z-A</button>
+      </div>
+    </div>
+    <div class="row">
       Filters:
       <div class="btn-group" role="group">
         <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']" [queryParams]="{filter: 'all'}">
@@ -19,6 +26,17 @@
         <button type="button" class="btn btn-default btn-sm" [routerLink]="['/tasks']"
                 [queryParams]="{filter: 'overdue'}">Overdue
         </button>
+        <div class = "btn-group">
+          <button type = "button" class = "btn btn-default btn-sm dropdown-toggle" data-toggle = "dropdown">
+            by Category
+            <span class = "caret"></span>
+          </button>
+          <ul class = "dropdown-menu" role = "menu">
+            <li><a [routerLink]="['/tasks']" [queryParams]="{filter: 'category', category_id: '1'}">Dummy Category 1</a></li>
+            <li><a [routerLink]="['/tasks']" [queryParams]="{filter: 'category', category_id: '2'}">Dummy Category 2</a></li>
+            <li><a [routerLink]="['/tasks']" [queryParams]="{filter: 'category', category_id: '3'}">Dummy Category 3</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="row">
